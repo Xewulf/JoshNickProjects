@@ -1,0 +1,15 @@
+#pragma once
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Shop
+{
+public:
+    Shop();
+
+private:
+
+
+};
