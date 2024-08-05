@@ -10,6 +10,7 @@ public:
 
     void playGame();
     void playerMove();
+    void Mapchange();
 private:
     Level _level;
     Player _player;

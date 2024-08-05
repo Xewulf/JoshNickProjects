@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Player.h"
 
 class Enemy
 {
@@ -11,9 +12,14 @@ public:
 
     //Getters
     void getPosition(int& x, int& y);
+    std::string getName() { return _name; }
+    char getTile() { return _tile; }
 
     int attack();
     int takeDamage(int attack);
+
+    //Gets AI move command
+    char getMove(int playerX, int playerY);
 
 private:
     std::string _name;

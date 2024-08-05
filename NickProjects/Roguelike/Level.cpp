@@ -105,6 +105,40 @@ void Level::movePlayer(char input, Player& player)
     }
 }
 
+void Level::updateEnemies(Player& player)
+{
+
+    char aiMove;
+    int playerX;
+    int playerY;
+    int enemyX;
+    int enemyY;
+
+    player.getPosition(playerX, playerY);
+
+    for (int i = 0; i < _enemies.size(); i++)
+    {
+        aiMove = _enemies[i].getMove(playerX, playerY);
+        _enemies[i].getPosition(enemyX, enemyY);
+
+        switch (aiMove)
+        {
+        case 'w': //up
+            processEnemyMove(player, i, enemyX, enemyY - 1);
+            break;
+        case 's': //down
+            processEnemyMove(player, i, enemyX, enemyY + 1);
+            break;
+        case 'a': //left
+            processEnemyMove(player, i, enemyX - 1, enemyY);
+            break;
+        case 'd': //right
+            processEnemyMove(player, i, enemyX + 1, enemyY);
+            break;
+        }
+    }
+}
+
 char Level::getTile(int x, int y)
 {
     return _levelData[y][x];
@@ -120,7 +154,7 @@ void Level::processPlayerMove(Player& player, int targetX, int targetY)
     int playerX;
     int playerY;
     player.getPosition(playerX, playerY);
-
+    std::string nextlevel = "Level2.txt";
 
     char moveTile = getTile(targetX, targetY);
 
@@ -131,6 +165,18 @@ void Level::processPlayerMove(Player& player, int targetX, int targetY)
         setTile(playerX, playerY, '.');
         setTile(targetX, targetY, '@');
         break;
+    case '-':
+
+        //INSERT NEXT LEVEL CODE HERE
+        //maplevel++
+
+        break;
+    case '_':
+
+        //INSERT PREVIOUS LEVEL CODE HERE
+        //maplevel--
+
+        break;
     case '#':
         break;
     default:
@@ -140,21 +186,60 @@ void Level::processPlayerMove(Player& player, int targetX, int targetY)
     }
 }
 
+void Level::processEnemyMove(Player& player, int enemyIndex, int targetX, int targetY)
+{
+    int playerX;
+    int playerY;
+    int enemyX;
+    int enemyY;
+
+    _enemies[enemyIndex].getPosition(enemyX, enemyY);
+
+    player.getPosition(playerX, playerY);
+
+
+    char moveTile = getTile(targetX, targetY);
+
+    switch (moveTile)
+    {
+    case '.':
+        _enemies[enemyIndex].setPosition(targetX, targetY);
+        setTile(enemyX, enemyY, '.');
+        setTile(targetX, targetY, _enemies[enemyIndex].getTile());
+        break;
+    case '@':
+        battleMonster(player, enemyX, enemyY);
+        break;
+    default:
+        break;
+
+    }
+}
+
 void Level::battleMonster(Player& player, int targetX, int targetY)
 {
     int enemyX;
     int enemyY;
+    int playerX;
+    int playerY;
     int attackRoll;
     int attackResult;
+    std::string enemyName;
+
+    player.getPosition(playerX, playerY);
+
 
     for (int i = 0; i < _enemies.size(); i++)
     {
+
         _enemies[i].getPosition(enemyX, enemyY);
+        enemyName = _enemies[i].getName();
+
         if (targetX == enemyX && targetY == enemyY)
         {
             //Battle!
             attackRoll = player.attack();
-            printf("Player attacked monster with a roll of %d \n", attackRoll);
+            printf("\nYou attacked %s with a roll of %d\n", enemyName.c_str(), attackRoll);
             attackResult = _enemies[i].takeDamage(attackRoll);
 
             if (attackResult != 0)
@@ -162,6 +247,12 @@ void Level::battleMonster(Player& player, int targetX, int targetY)
                 setTile(targetX, targetY, '.');
                 print();
                 printf("Monster died!\n");
+
+                //remove the enemy
+                _enemies[i] = _enemies.back();
+                _enemies.pop_back();
+                i--;
+
                 system("PAUSE");
                 player.addExperience(attackResult);
 
@@ -169,20 +260,20 @@ void Level::battleMonster(Player& player, int targetX, int targetY)
             }
             //Monster turn!
             attackRoll = _enemies[i].attack();
-            printf("%s attacked you with a roll of %d \n", attackRoll);
+            printf("%s attacked you with a roll of %d\n", enemyName.c_str(), attackRoll);
 
             attackResult = player.takeDamage(attackRoll);
 
             if (attackResult != 0)
             {
-                setTile(targetX, targetY, 'x');
+                setTile(playerX, playerY, 'x');
                 print();
                 printf("You died!\n");
                 system("PAUSE");
 
                 exit(0);
             }
-
+            system("PAUSE");
             return;
         }
     }

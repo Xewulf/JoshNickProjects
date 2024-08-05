@@ -1,14 +1,11 @@
 ﻿  Enemy.cpp
 C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Enemy.cpp(31,56): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Enemy.cpp(56,54): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   GameSystem.cpp
   Level.cpp
 C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(81,10): warning C4101: 'moveTile': unreferenced local variable
-C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(172,20): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'int'
-C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(172,20): warning C4313: 'printf': '%s' in format string conflicts with argument 1 of type 'int'
-C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(172,20): warning C4473: 'printf' : not enough arguments passed for format string
-  main.cpp
   Player.cpp
 C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Player.cpp(22,56): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Shop.cpp
+  main.cpp
   Generating Code...
   Roguelike.vcxproj -> C:\Users\Nicholas\source\repos\Roguelike\x64\Debug\Roguelike.exe

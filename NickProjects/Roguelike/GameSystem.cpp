@@ -20,6 +20,7 @@ void GameSystem::playGame()
     {
         _level.print();
         playerMove();
+        _level.updateEnemies(_player);
     }
 
 }
@@ -40,5 +41,6 @@ void GameSystem::playerMove()
     _level.movePlayer(input, _player);
 
 }
+
 
 

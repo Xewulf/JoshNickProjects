@@ -13,6 +13,8 @@ public:
     void print();
 
     void movePlayer(char input, Player& player);
+    void updateEnemies(Player& player);
+
     //Getters
     char getTile(int x, int y);
     //Setters
@@ -20,8 +22,10 @@ public:
 
 private:
     void processPlayerMove(Player& player, int targetX, int targetY);
+    void processEnemyMove(Player& player, int enemyIndex, int targetX, int targetY);
     void battleMonster(Player& player, int targetX, int targetY);
 
     std::vector <std::string> _levelData;
     std::vector <Enemy> _enemies;
+    std::vector <std::string> _levels;
 };
