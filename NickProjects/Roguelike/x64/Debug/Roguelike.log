@@ -1,11 +1,6 @@
-﻿  Enemy.cpp
-C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Enemy.cpp(31,56): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Enemy.cpp(56,54): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  GameSystem.cpp
-  Level.cpp
-C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(81,10): warning C4101: 'moveTile': unreferenced local variable
+﻿  GameSystem.cpp
   Player.cpp
-C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Player.cpp(22,56): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  main.cpp
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Player.cpp(24,56): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Player.cpp(66,27): warning C4244: '*=': conversion from 'double' to 'int', possible loss of data
   Generating Code...
   Roguelike.vcxproj -> C:\Users\Nicholas\source\repos\Roguelike\x64\Debug\Roguelike.exe

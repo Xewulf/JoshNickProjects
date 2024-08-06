@@ -1,6 +1,7 @@
 #include "Player.h"
 #include <random>
 #include <ctime>
+#include <iostream>
 
 //Constructor, just initializes position to zero
 Player::Player() {
@@ -11,6 +12,7 @@ Player::Player() {
 //Initializes the player with properties
 void Player::init(int level, int health, int attack, int defense, int experience) {
     _level = level;
+    _maxhealth = health;
     _health = health;
     _attack = attack;
     _defense = defense;
@@ -31,19 +33,37 @@ void Player::setPosition(int x, int y) {
     _y = y;
 }
 
+void Player::printstats()
+{
+    int attack = _attack;
+    int defense = _defense;
+    int health = _health;
+    int maxhealth = _maxhealth;
+    int level = _level;
+    int experience = _experience;
+    int maxexperience = _experiencecap;
+
+    std::cout << "You are level " << level << "\n";
+    std::cout << "Atk: " << attack << "   Def: " << defense << "   Hp: " << health << " / " << maxhealth << "\n";
+    std::cout << "Exp: " << experience << " / " << maxexperience << "\n";
+
+}
+
 void Player::addExperience(int experience)
 {
     _experience += experience;
 
     //Level Up!
-    while (_experience > 50)
+    while (_experience > _experiencecap)
     {
         printf("Leveled up!\n");
-        _experience -= 50;
-        _attack += 10;
-        _defense += 5;
+        _experience -= _experiencecap;
+        _attack += 1;
+        _defense += 1;
+        _maxhealth += 10;
         _health += 10;
         _level++;
+        _experiencecap *= 1.2;
         system("PAUSE");
     }
 
@@ -54,6 +74,7 @@ void Player::getPosition(int& x, int& y) {
     x = _x;
     y = _y;
 }
+
 
 int Player::takeDamage(int attack)
 {

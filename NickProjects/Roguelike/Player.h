@@ -11,7 +11,7 @@ public:
 
     //Setters
     void setPosition(int x, int y);
-
+    void printstats();
     void addExperience(int experience);
 
     //Getters
@@ -21,9 +21,11 @@ private:
     //Properties
     int _level;
     int _health;
+    int _maxhealth;
     int _attack;
     int _defense;
     int _experience;
+    int _experiencecap = 50;
 
     //Position
     int _x;

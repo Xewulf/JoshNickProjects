@@ -10,6 +10,7 @@ public:
     Level();
 
     void load(std::string fileName, Player& player);
+    void printvoid();
     void print();
 
     void movePlayer(char input, Player& player);
@@ -28,4 +29,7 @@ private:
     std::vector <std::string> _levelData;
     std::vector <Enemy> _enemies;
     std::vector <std::string> _levels;
+
+    int levelnumber = 1;
+
 };

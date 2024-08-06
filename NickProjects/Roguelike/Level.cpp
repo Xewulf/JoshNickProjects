@@ -1,4 +1,5 @@
 #include "Level.h"
+#include "Player.h"
 #include <fstream>
 #include <iostream>
 #include <cstdio>
@@ -11,6 +12,10 @@ Level::Level()
 void Level::load(std::string fileName, Player& player)
 {
     //Loads the level
+
+    _levelData.clear();
+    _enemies.clear();
+
     std::ifstream file;
 
     file.open(fileName);
@@ -43,26 +48,29 @@ void Level::load(std::string fileName, Player& player)
                 player.setPosition(j, i);
                 break;
             case 'S': //Skeleton
-                _enemies.push_back(Enemy("Skeleton", tile, 1, 3, 1, 10, 10));
+                _enemies.push_back(Enemy("Skeleton", tile, 1, 4, 1, 10, 20)); //level, attack, defense, health, xp)
                 _enemies.back().setPosition(j, i);
                 break;
-            case 'D': //Skeleton
-                _enemies.push_back(Enemy("Death Knight", tile, 5, 15, 10, 100, 100));
+            case 'D': //Death Knight
+                _enemies.push_back(Enemy("Death Knight", tile, 5, 15, 10, 100, 100)); //level, attack, defense, health, xp)
                 _enemies.back().setPosition(j, i);
                 break;
-            case 'L': //Skeleton
-                _enemies.push_back(Enemy("Lich King", tile, 10, 30, 20, 300, 1000));
+            case 'L': //Lich King
+                _enemies.push_back(Enemy("Lich King", tile, 10, 30, 20, 300, 1000)); //level, attack, defense, health, xp)
                 _enemies.back().setPosition(j, i);
                 break;
             }
         }
     }
 }
+void Level::printvoid()
+{
+    std::cout << std::string(100, '\n');
+}
 
 void Level::print()
 {
-
-    std::cout << std::string(100, '\n');
+    printf("\n");
 
     for (int i = 0; i < _levelData.size(); i++)
     {
@@ -166,15 +174,15 @@ void Level::processPlayerMove(Player& player, int targetX, int targetY)
         setTile(targetX, targetY, '@');
         break;
     case '-':
-
-        //INSERT NEXT LEVEL CODE HERE
-        //maplevel++
+        
+        levelnumber++;
+        load("Level" + std::to_string(levelnumber) + ".txt", player);
 
         break;
     case '_':
 
-        //INSERT PREVIOUS LEVEL CODE HERE
-        //maplevel--
+        levelnumber--;
+        load("Level" + std::to_string(levelnumber) + ".txt", player);
 
         break;
     case '#':

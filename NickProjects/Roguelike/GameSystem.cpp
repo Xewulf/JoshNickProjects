@@ -2,10 +2,21 @@
 #include <iostream>
 #include <conio.h>
 
+// Check if we are on Windows
+#if defined(_WIN32) || defined(_win64)
+#include <conio.h>
+#define HAS_GETCH 1
+#else
+#define HAS_GETCH 0
+#endif
+
+
+
+
 //Constructor sets up the game
 GameSystem::GameSystem(std::string levelFileName)
 {
-    _player.init(1, 100, 10, 10, 0);
+    _player.init(1, 30, 5, 2, 0); //level, health, attack, defense, experience
 
     _level.load(levelFileName, _player);
 
@@ -16,8 +27,13 @@ void GameSystem::playGame()
 {
     bool isDone = false;
 
+
+
     while (isDone != true)
     {
+
+        _level.printvoid();
+        _player.printstats();
         _level.print();
         playerMove();
         _level.updateEnemies(_player);
