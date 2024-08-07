@@ -12,6 +12,7 @@ Enemy::Enemy(std::string name, char tile, int level, int attack, int defense, in
     _defense = defense;
     _health = health;
     _experienceValue = xp;
+    _gold = (xp / 2);
 }
 
 //Sets the position of the enemy

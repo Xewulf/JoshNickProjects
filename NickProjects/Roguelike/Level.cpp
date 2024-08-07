@@ -1,5 +1,7 @@
 #include "Level.h"
 #include "Player.h"
+#include "Shop.h"
+#include "Gamesystem.h"
 #include <fstream>
 #include <iostream>
 #include <cstdio>
@@ -185,6 +187,56 @@ void Level::processPlayerMove(Player& player, int targetX, int targetY)
         load("Level" + std::to_string(levelnumber) + ".txt", player);
 
         break;
+    case '$':
+        
+
+        bool isShopping = true;
+
+        // OPEN SHOP
+        while (isShopping == true)
+        {
+            cout << "Shops:\n";
+            int i = 1;
+            for (lit = shops.begin(); lit != shops.end(); lit++)
+            {
+                cout << i << ". " << (*lit).getName() << endl;
+                i++;
+            }
+
+            cout << "\nWhat shop would you like to enter? Q to quit: ";
+
+
+            getline(cin, shopName);
+
+            if (shopName == "Q" || shopName == "q") 
+            {
+                isShopping = false;
+            }
+            else
+            {
+
+                cout << endl;
+
+                bool validShop = false;
+
+                for (lit = shops.begin(); lit != shops.end(); lit++)
+                {
+                    if ((*lit).getName() == shopName)
+                    {
+                        _shop.enterShop(player, (*lit));
+                        validShop = true;
+                    }
+                }
+                if (validShop == false)
+                {
+                    cout << "Invalid Shop!\n";
+                    system("PAUSE");
+                }
+            }
+        }
+        system("PAUSE");
+        break;
+
     case '#':
         break;
     default:
@@ -233,6 +285,12 @@ void Level::battleMonster(Player& player, int targetX, int targetY)
     int attackRoll;
     int attackResult;
     std::string enemyName;
+    int enemyLevel;
+    int enemyAttack;
+    int enemyDefense;
+    int enemyHealth;
+    int enemyExp;
+    int enemyGold;
 
     player.getPosition(playerX, playerY);
 
@@ -242,19 +300,31 @@ void Level::battleMonster(Player& player, int targetX, int targetY)
 
         _enemies[i].getPosition(enemyX, enemyY);
         enemyName = _enemies[i].getName();
+        enemyLevel = _enemies[i].getLevel();
+        enemyAttack = _enemies[i].getAttack();
+        enemyDefense = _enemies[i].getDefense();
+        enemyHealth = _enemies[i].getHealth();
+        enemyExp = _enemies[i].getExperience();
+        enemyGold = _enemies[i].getGold();
 
         if (targetX == enemyX && targetY == enemyY)
         {
             //Battle!
+
+            printvoid(); // used to reprint level and make attacks above
+
+            printf("\nLevel %i %s \nAtk: %i   Def: %i   Hp: %i\n\n", enemyLevel, enemyName.c_str(), enemyAttack, enemyDefense, enemyHealth);
+
             attackRoll = player.attack();
-            printf("\nYou attacked %s with a roll of %d\n", enemyName.c_str(), attackRoll);
+            printf("\nYou attacked %s with a roll of %d\n\n", enemyName.c_str(), attackRoll);
             attackResult = _enemies[i].takeDamage(attackRoll);
 
             if (attackResult != 0)
             {
                 setTile(targetX, targetY, '.');
+                printf("%s died!\n\nYou have earned %i gold and %i experience points!\n\n", enemyName.c_str(), enemyGold, enemyExp);
+                player.printstats();
                 print();
-                printf("Monster died!\n");
 
                 //remove the enemy
                 _enemies[i] = _enemies.back();
@@ -268,19 +338,27 @@ void Level::battleMonster(Player& player, int targetX, int targetY)
             }
             //Monster turn!
             attackRoll = _enemies[i].attack();
-            printf("%s attacked you with a roll of %d\n", enemyName.c_str(), attackRoll);
+            printf("%s attacked you with a roll of %d\n\n", enemyName.c_str(), attackRoll);
 
             attackResult = player.takeDamage(attackRoll);
 
             if (attackResult != 0)
             {
                 setTile(playerX, playerY, 'x');
+                printvoid();
+                printf("You died!\n\n");
+                player.printstats();
                 print();
-                printf("You died!\n");
                 system("PAUSE");
 
                 exit(0);
             }
+
+            // used to make the attack rolls be above the stats/level
+            player.printstats();
+            print();
+
+
             system("PAUSE");
             return;
         }

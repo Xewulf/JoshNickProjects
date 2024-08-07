@@ -1,6 +1,9 @@
-#include "GameSystem.h"
 #include <iostream>
+#include <string>
+#include "GameSystem.h"
+#include "Shop.h"
 #include <conio.h>
+
 
 // Check if we are on Windows
 #if defined(_WIN32) || defined(_win64)
@@ -17,6 +20,9 @@
 GameSystem::GameSystem(std::string levelFileName)
 {
     _player.init(1, 30, 5, 2, 0); //level, health, attack, defense, experience
+    list<Shop> shops;
+    _shop.initShops(shops);
+    
 
     _level.load(levelFileName, _player);
 

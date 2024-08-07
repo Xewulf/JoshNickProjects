@@ -1,4 +1,7 @@
 #pragma once
+#include <string>
+#include <list>
+#include "Item.h"
 
 class Player
 {
@@ -9,13 +12,23 @@ public:
     int attack();
     int takeDamage(int attack);
 
+    bool canAffordItem(string name, int money);
+
+    void removeItem(string name);
+    void addItem(Item newItem);
+
+
     //Setters
     void setPosition(int x, int y);
     void printstats();
+    void printInventory();
     void addExperience(int experience);
+    void addGold(int gold) { _gold += gold; }
 
     //Getters
     void getPosition(int& x, int& y);
+    int getGold() { return _gold; }
+    void subtractGold(int amount) { _gold -= amount; }
 
 private:
     //Properties
@@ -26,6 +39,11 @@ private:
     int _defense;
     int _experience;
     int _experiencecap = 50;
+
+    //Items + money
+    string _name;
+    list<Item> _items;
+    int _gold;
 
     //Position
     int _x;

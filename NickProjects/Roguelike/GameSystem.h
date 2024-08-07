@@ -12,6 +12,7 @@ public:
     void playerMove();
 
 private:
+    Shop _shop;
     Level _level;
     Player _player;
 };

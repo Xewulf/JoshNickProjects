@@ -1,6 +1,29 @@
 ﻿  GameSystem.cpp
-  Player.cpp
-C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Player.cpp(24,56): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Player.cpp(66,27): warning C4244: '*=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\GameSystem.cpp(21,1): error C2512: 'Shop': no appropriate default constructor available
+  Level.cpp
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(10,1): error C2512: 'Shop': no appropriate default constructor available
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(200,18): error C2065: 'lit': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(200,24): error C2065: 'shops': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(200,39): error C2065: 'lit': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(200,46): error C2065: 'shops': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(200,59): error C2065: 'lit': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(202,40): error C2065: 'lit': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(209,26): error C2065: 'shopName': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(211,17): error C2065: 'shopName': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(211,36): error C2065: 'shopName': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(222,22): error C2065: 'lit': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(222,28): error C2065: 'shops': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(222,43): error C2065: 'lit': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(222,50): error C2065: 'shops': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(222,63): error C2065: 'lit': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(224,27): error C2065: 'lit': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(224,45): error C2065: 'shopName': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(226,51): error C2065: 'lit': undeclared identifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(240,5): error C2360: initialization of 'isShopping' is skipped by 'case' label
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Level.cpp(242,5): error C2361: initialization of 'isShopping' is skipped by 'default' label
+  main.cpp
+  Shop.cpp
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\level.h(36,10): error C3646: '_shop': unknown override specifier
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\level.h(36,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Nicholas\source\repos\Roguelike\Roguelike\Shop.cpp(46,14): error C2661: 'Item::Item': no overloaded function takes 3 arguments
   Generating Code...
-  Roguelike.vcxproj -> C:\Users\Nicholas\source\repos\Roguelike\x64\Debug\Roguelike.exe

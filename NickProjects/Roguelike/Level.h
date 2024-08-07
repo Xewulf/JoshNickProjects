@@ -3,12 +3,13 @@
 #include <string>
 #include "Player.h"
 #include "Enemy.h"
+#include "Shop.h"
 
 class Level
 {
 public:
     Level();
-
+    bool isShopping = true;
     void load(std::string fileName, Player& player);
     void printvoid();
     void print();
@@ -32,4 +33,5 @@ private:
 
     int levelnumber = 1;
 
+    Shop _shop;
 };
