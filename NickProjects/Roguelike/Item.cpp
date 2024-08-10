@@ -3,10 +3,11 @@
 Item::Item(string name, int count, int value, int attack, int defense)
 {
 	_name = name;
-	_value = value;
 	_count = count;
+	_value = value;
+	_attack = attack;
+	_defense = defense;
 }
-
 
 void Item::addOne()
 {

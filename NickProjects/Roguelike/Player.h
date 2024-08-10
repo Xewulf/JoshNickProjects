@@ -7,7 +7,7 @@ class Player
 {
 public:
     Player();
-    void init(int level, int health, int attack, int defense, int experience);
+    void init(int level, int health, int attack, int defense, int experience, int weaponatk, int armordef);
 
     int attack();
     int takeDamage(int attack);
@@ -15,13 +15,15 @@ public:
     bool canAffordItem(string name, int money);
 
     void removeItem(string name);
-    void addItem(Item newItem);
+    void addItemWeapon(Item newItem);
+    void addItemArmor(Item newItem);
 
 
     //Setters
     void setPosition(int x, int y);
     void printstats();
     void printInventory();
+    void updategear();
     void addExperience(int experience);
     void addGold(int gold) { _gold += gold; }
 
@@ -39,10 +41,15 @@ private:
     int _defense;
     int _experience;
     int _experiencecap = 50;
+    int _weaponatk;
+    int _armordef;
 
     //Items + money
     string _name;
     list<Item> _items;
+    string _weapon = "None";
+    string _armor = "None";
+
     int _gold;
 
     //Position

@@ -1,6 +1,5 @@
 #include "Level.h"
 #include "Player.h"
-#include "Shop.h"
 #include "Gamesystem.h"
 #include <fstream>
 #include <iostream>
@@ -11,8 +10,11 @@ Level::Level()
 
 }
 
-void Level::load(std::string fileName, Player& player)
+void Level::load(std::string fileName, Player& player, const vector<Shop>& shops)
 {
+
+    _shops = shops;
+
     //Loads the level
 
     _levelData.clear();
@@ -53,12 +55,28 @@ void Level::load(std::string fileName, Player& player)
                 _enemies.push_back(Enemy("Skeleton", tile, 1, 4, 1, 10, 20)); //level, attack, defense, health, xp)
                 _enemies.back().setPosition(j, i);
                 break;
-            case 'D': //Death Knight
-                _enemies.push_back(Enemy("Death Knight", tile, 5, 15, 10, 100, 100)); //level, attack, defense, health, xp)
+            case 'W': //Skeleton Warrior
+                _enemies.push_back(Enemy("Skeleton Warrior", tile, 5, 8, 10, 40, 50)); //level, attack, defense, health, xp)
                 _enemies.back().setPosition(j, i);
                 break;
-            case 'L': //Lich King
-                _enemies.push_back(Enemy("Lich King", tile, 10, 30, 20, 300, 1000)); //level, attack, defense, health, xp)
+            case 'K': //Skeleton Knight
+                _enemies.push_back(Enemy("Skeleton Knight", tile, 10, 18, 20, 80, 250)); //level, attack, defense, health, xp)
+                _enemies.back().setPosition(j, i);
+                break;
+            case 'L': //Lich
+                _enemies.push_back(Enemy("Lich", tile, 25, 40, 40, 300, 1000)); //level, attack, defense, health, xp)
+                _enemies.back().setPosition(j, i);
+                break;
+            case 'D': //Demon
+                _enemies.push_back(Enemy("Demon", tile, 45, 150, 150, 400, 1500)); //level, attack, defense, health, xp)
+                _enemies.back().setPosition(j, i);
+                break;
+            case 'A': //Archdevil
+                _enemies.push_back(Enemy("Archdevil", tile, 75, 600, 600, 800, 20000)); //level, attack, defense, health, xp)
+                _enemies.back().setPosition(j, i);
+                break;
+            case 'P': //Primeval Demon King
+                _enemies.push_back(Enemy("Primeval Demon King", tile, 100, 1800, 1400, 5000, 1000000)); //level, attack, defense, health, xp)
                 _enemies.back().setPosition(j, i);
                 break;
             }
@@ -107,6 +125,10 @@ void Level::movePlayer(char input, Player& player)
     case 'd': //right
     case 'D':
         processPlayerMove(player, playerX + 1, playerY);
+        break;
+    case 'i': //inventory
+    case 'I':
+
         break;
     default:
         printf("INVALID INPUT!\n");
@@ -178,17 +200,19 @@ void Level::processPlayerMove(Player& player, int targetX, int targetY)
     case '-':
         
         levelnumber++;
-        load("Level" + std::to_string(levelnumber) + ".txt", player);
+        load("Level" + std::to_string(levelnumber) + ".txt", player, _shops);
 
         break;
     case '_':
 
         levelnumber--;
-        load("Level" + std::to_string(levelnumber) + ".txt", player);
+        load("Level" + std::to_string(levelnumber) + ".txt", player, _shops);
 
         break;
     case '$':
-        
+    {
+
+
 
         bool isShopping = true;
 
@@ -197,7 +221,10 @@ void Level::processPlayerMove(Player& player, int targetX, int targetY)
         {
             cout << "Shops:\n";
             int i = 1;
-            for (lit = shops.begin(); lit != shops.end(); lit++)
+            char input;
+
+
+            for (auto lit = _shops.begin(); lit != _shops.end(); lit++)
             {
                 cout << i << ". " << (*lit).getName() << endl;
                 i++;
@@ -206,25 +233,32 @@ void Level::processPlayerMove(Player& player, int targetX, int targetY)
             cout << "\nWhat shop would you like to enter? Q to quit: ";
 
 
-            getline(cin, shopName);
+            cin >> input;
 
-            if (shopName == "Q" || shopName == "q") 
+
+
+            if (input == 'Q' || input == 'q')
             {
+
                 isShopping = false;
             }
             else
             {
+                //works until we have 10 shops
+                int shopIndex = input - '1';
 
                 cout << endl;
 
                 bool validShop = false;
-
-                for (lit = shops.begin(); lit != shops.end(); lit++)
+                int counter = 0;
+                for (auto lit = _shops.begin(); lit != _shops.end(); lit++, counter++)
                 {
-                    if ((*lit).getName() == shopName)
+                    if (counter == shopIndex)
                     {
-                        _shop.enterShop(player, (*lit));
+
+                        lit->enterShop(player);
                         validShop = true;
+
                     }
                 }
                 if (validShop == false)
@@ -235,6 +269,7 @@ void Level::processPlayerMove(Player& player, int targetX, int targetY)
             }
         }
         system("PAUSE");
+    }
         break;
 
     case '#':

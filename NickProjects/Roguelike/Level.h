@@ -5,12 +5,14 @@
 #include "Enemy.h"
 #include "Shop.h"
 
+class Shop;
+
 class Level
 {
 public:
     Level();
     bool isShopping = true;
-    void load(std::string fileName, Player& player);
+    void load(std::string fileName, Player& player, const vector<Shop>& shops);
     void printvoid();
     void print();
 
@@ -33,5 +35,5 @@ private:
 
     int levelnumber = 1;
 
-    Shop _shop;
+    vector<Shop> _shops;
 };
